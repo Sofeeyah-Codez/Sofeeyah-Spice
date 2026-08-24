@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sofeeyah Spice</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* RESET */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        scroll-behavior: smooth;
+      }
+      section {
+        padding-top: 120px; /* leave space for navbar */
+      }
+
+      /* HEADINGS */
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", serif;
+        color: #8b0000;
+      }
+
+      /* NAVBAR */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(139, 0, 0, 0.9);
+        color: white;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 50px;
+      }
+
+      .nav-left a {
+        color: white;
+        margin: 0 15px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .nav-left a:hover {
+        color: #ffd700;
+      }
+
+      .nav-right img {
+        height: 50px;
+        width: auto;
+        border-radius: 50%;
+        transition: transform 0.3s;
+      }
+
+      .nav-right img:hover {
+        transform: scale(1.1);
+      }
+
+      /* HAMBURGER */
+      .hamburger {
+        display: none;
+        font-size: 28px;
+        color: white;
+        cursor: pointer;
+        z-index: 1100;
+      }
+
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 5px 0;
+        transition: 0.4s;
+      }
+
+      /* MOBILE MENU SLIDE DOWN */
+      @media (max-width: 768px) {
+        .nav-left {
+          display: flex; /* Keep flex for stacking links */
+          flex-direction: column;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 0; /* Hidden initially */
+          overflow: hidden; /* Hide content when collapsed */
+          background: rgba(139, 0, 0, 0.9);
+          justify-content: center;
+          align-items: center;
+          transition: height 0.5s ease;
+          z-index: 1000;
+        }
+
+        /* When menu is open */
+        .nav-left.open {
+          height: 100vh; /* Slide down fully */
+        }
+
+        /* Menu links */
+        .nav-left a {
+          font-size: 22px;
+          padding: 15px 0;
+          text-align: center;
+          width: 100%;
+          display: block;
+        }
+
+        /* Hamburger visible */
+        .hamburger {
+          display: block;
+        }
+      }
+
+      /* HERO */
+      #home {
+        position: relative;
+        background: url("./images/hero-background.jpg") no-repeat center/cover;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      #home::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+        z-index: 1;
+      }
+
+      #home h1 {
+        font-size: 4em;
+        color: #8b0000;
+        position: relative;
+        z-index: 2;
+        animation: colorChange 3s infinite alternate;
+      }
+
+      #home p {
+        font-size: 1.3em;
+        max-width: 600px;
+        line-height: 1.5;
+        color: white;
+        position: relative;
+        z-index: 2;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        margin-top: 20px;
+      }
+
+      .btn-hero {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 12px 30px;
+        background: #ffd700;
+        color: #8b0000;
+        font-weight: bold;
+        border-radius: 25px;
+        text-decoration: none;
+        position: relative;
+        z-index: 2;
+        transition:
+          transform 0.3s,
+          background 0.3s;
+      }
+
+      .btn-hero:hover {
+        transform: scale(1.05);
+        background: #ffec7f;
+      }
+
+      /* ANIMATIONS */
+      @keyframes colorChange {
+        0% {
+          color: #8b0000;
+        }
+        100% {
+          color: #ffd700;
+        }
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 100px 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* COMMON H2 ANIMATION */
+      section h2 {
+        font-size: 2.5em;
+        color: #8b0000;
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 1s ease,
+          transform 1s ease;
+      }
+
+      section:target h2 {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      section h2::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 4px;
+        background-color: #ffd700;
+        margin: 10px 0 30px 0;
+        border-radius: 2px;
+        transition: width 1s ease;
+      }
+
+      section:target h2::after {
+        width: 100%;
+      }
+
+      /* ABOUT */
+      #about {
+        background: #fff8f0;
+        height: auto;
+      }
+
+      .about-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        max-width: 1200px;
+        align-items: center;
+        height: auto;
+      }
+
+      .about-text {
+        flex: 1 1 500px;
+        font-size: 1.1em;
+        line-height: 1.8;
+        text-align: left;
+      }
+
+      .about-text ul {
+        margin-top: 20px;
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .about-text ul li {
+        margin-bottom: 10px;
+        padding-left: 25px;
+        position: relative;
+      }
+
+      .about-text ul li::before {
+        content: "✔";
+        position: absolute;
+        left: 0;
+        color: #ffd700;
+      }
+
+      .about-image {
+        flex: 1 1 500px;
+        text-align: center;
+      }
+
+      .about-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+      }
+
+      .about-image img:hover {
+        transform: scale(1.05);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1024px) {
+        .about-container {
+          flex-direction: column;
+          text-align: center;
+        }
+        .about-image {
+          text-align: center;
+        }
+      }
+      /* MENU */
+      #menu {
+        background: #faf5f0;
+        text-align: center;
+      }
+
+      .menu-intro {
+        font-size: 1.1em;
+        color: #555;
+        max-width: 700px;
+        margin: 0 auto 50px;
+      }
+
+      .menu-category {
+        margin-bottom: 70px;
+      }
+
+      .menu-category h3 {
+        font-size: 1.8em;
+        color: #8b0000;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .menu-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        justify-items: center;
+      }
+
+      .menu-item {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 320px;
+        position: relative;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .menu-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .menu-item h4 {
+        font-size: 1.2em;
+        color: #8b0000;
+        margin: 15px 10px 5px;
+      }
+
+      .menu-item p {
+        font-size: 0.95em;
+        color: #555;
+        margin: 0 10px 10px;
+      }
+
+      .menu-item strong {
+        display: block;
+        margin-bottom: 15px;
+        color: #000;
+        font-weight: bold;
+      }
+
+      .menu-item .chef-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #ffd700;
+        color: #8b0000;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8em;
+      }
+
+      .menu-item:hover p {
+        background: rgba(255, 215, 0, 0.1);
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      /* RESERVATION */
+      #reservation {
+        background: #fff8f0;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 320px;
+        margin-top: 20px;
+      }
+
+      input,
+      select,
+      button {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+      }
+
+      button {
+        background: #8b0000;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition:
+          background 0.3s,
+          transform 0.3s;
+      }
+
+      button:hover {
+        background: #a52a2a;
+        transform: scale(1.05);
+      }
+
+      .contact-info {
+        margin-top: 20px;
+        font-size: 0.95em;
+      }
+
+      /* ORDER ONLINE */
+      #order {
+        background: #faf5f0;
+        text-align: center;
+      }
+
+      .order-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .order-item {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 220px;
+        transition: transform 0.3s;
+      }
+
+      .order-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .order-item a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #ffd700;
+        color: #8b0000;
+        font-weight: bold;
+        border-radius: 25px;
+        text-decoration: none;
+        transition:
+          transform 0.3s,
+          background 0.3s;
+      }
+
+      .order-item a:hover {
+        transform: scale(1.05);
+        background: #ffec7f;
+      }
+
+      /* MODAL CSS */
+      /* FIXED RESPONSIVE MODAL */
+      html,
+      body {
+        height: 100%;
+      }
+
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        padding: 20px;
+      }
+
+      .modal:target {
+        display: flex;
+      }
+
+      .modal-content {
+        background: #fff8f0;
+        padding: 20px;
+        border-radius: 12px;
+        width: 95%;
+        max-width: 380px;
+        position: relative;
+
+        /* IMPORTANT — keep form inside screen */
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-content h3 {
+        margin-bottom: 15px;
+        color: #8b0000;
+      }
+
+      .modal-content input,
+      .modal-content select,
+      .modal-content textarea,
+      .modal-content button {
+        width: 100%;
+        margin-bottom: 12px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      .modal-content button {
+        background: #8b0000;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        text-decoration: none;
+        font-size: 26px;
+        color: #8b0000;
+        font-weight: bold;
+        padding: 5px;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+      }
+
+      footer a {
+        color: #ffd700;
+        margin: 0 10px;
+      }
+      /* RESPONSIVE */
+      @media (max-width: 1024px) {
+        .menu-list {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .about-container {
+          flex-direction: column;
+          text-align: center;
+        }
+        .about-image {
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .menu-list {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="hamburger" id="hamburger">
+        &#9776;
+        <!-- ☰ hamburger icon -->
+      </div>
+
+      <div class="nav-left nav-links" id="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#reservation">Reservation</a>
+        <a href="#order">Order Online</a>
+      </div>
+
+      <div class="nav-right">
+        <img src="./images/favicon.png" alt="Logo" />
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home">
+      <h1>Sofeeyah Spice</h1>
+      <p>
+        Celebrating Nigeria’s Bold Flavors and Vibrant Culture on Every Plate
+      </p>
+      <a href="#reservation" class="btn-hero">Book a Table</a>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About Sofeeyah Spice</h2>
+      <div class="about-container">
+        <div class="about-text">
+          <p>
+            We celebrate Nigeria's rich, bold, and colorful flavors. Our dishes
+            are inspired by traditional recipes crafted with a modern twist.
+          </p>
+          <ul>
+            <li>Authentic Nigerian Flavors</li>
+            <li>Locally Sourced Ingredients</li>
+            <li>Signature Chef Creations</li>
+          </ul>
+        </div>
+        <div class="about-image">
+          <img src="./images/about.png" alt="Restaurant Interior" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu">
+      <h2>Our Nigerian Fusion Menu</h2>
+      <p class="menu-intro">
+        A celebration of Nigeria’s rich flavors — reinvented with a modern
+        twist. Taste tradition reimagined!
+      </p>
+
+      <!-- Starters -->
+      <div class="menu-category">
+        <h3>Starters</h3>
+        <div class="menu-list">
+          <div class="menu-item">
+            <img src="./images/goat-meat-peppersoup.jpg" alt="Pepper Soup" />
+            <h4>Spicy Goat Meat Pepper Soup</h4>
+            <p>
+              A hot, aromatic broth with tender goat meat and rich Nigerian
+              spices.
+            </p>
+            <strong>₦3,500</strong>
+          </div>
+          <div class="menu-item">
+             <div class="chef-badge">Chef Special</div>
+            <img src="./images/gizdodo.jpg" alt="Gizdodo" />
+            <h4>Gizdodo Cups</h4>
+            <p>
+              Flavorful mix of spiced gizzard and sweet plantains served in
+              small, bite-size portions.
+            </p>
+            <strong>₦2,800</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/moi-moi.jpg" alt="Moi Moi Rolls" />
+            <h4>Moi Moi Rolls</h4>
+            <p>
+              Delicate steamed bean pudding rolled neatly and filled with fish
+              and boiled egg.
+            </p>
+            <strong>₦3,200</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/suya.jpg" alt="Suya" />
+            <h4>Beef Suya Skewers</h4>
+            <p>Grilled spicy beef skewers with traditional spices.</p>
+            <strong>₦3,000</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/chicken-wings.jpg" alt="Akara" />
+            <h4>Spicy Chicken Wings</h4>
+            <p>
+              Juicy wings tossed in a rich pepper sauce with a hint of smoky
+              seasoning.
+            </p>
+            <strong>₦5,000</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/fried-snail.jpg" alt="Peppered Snails" />
+            <h4>Peppered Snails</h4>
+            <p>Spicy snails cooked in traditional Nigerian sauce.</p>
+            <strong>₦4,000</strong>
+          </div>
+        </div>
+      </div>
+      <!-- Main courses -->
+      <div class="menu-category">
+        <h3>Main Courses</h3>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="chef-badge">Chef Special</div>
+            <img src="./images/amala.jpg" alt="Abula" />
+            <h4>Abula (Amala + Gbegiri + Ewedu + Soup)</h4>
+            <p>
+              A classic Yoruba trio featuring soft amala paired with silky
+              gbegiri, fresh ewedu, and rich peppered stew, served with premium
+              assorted meats.
+            </p>
+            <strong>₦12,500</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/pounded-yam.jpg" alt="Pounded yam" />
+            <h4>Pounded Yam & Egusi Soup</h4>
+            <p>
+              Smooth hand-pounded yam served with a deeply seasoned egusi soup
+              cooked with slow-simmered spices, stockfish, and assorted meats.
+            </p>
+            <strong>₦14,800</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/banga-soup.jpg" alt="Banga Soup" />
+            <h4>Banga Soup & Starch (Oghwevwri & Usi)</h4>
+            <p>
+              Authentic Delta-style palm fruit soup enriched with fresh catfish,
+              periwinkles, and aromatic spices, served alongside golden starch.
+            </p>
+            <strong>₦15,200</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/tuwo.jpg" alt="Tuwo" />
+            <h4>Tuwo Shinkafa with Miyan Kuka</h4>
+            <p>
+              Soft, molded rice paired with classic Hausa baobab leaf soup,
+              prepared with smoked meats and subtle northern spices.
+            </p>
+            <strong>₦11,500</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/rice-combo.jpg" alt="Rice combo" />
+            <h4>Signature Rice Duo Combo</h4>
+            <p>
+              A perfect duo of rich jollof rice and vibrant fried rice, paired
+              with crisp salad and tender oven-grilled chicken seasoned to
+              perfection.
+            </p>
+            <strong>₦18,000</strong>
+          </div>
+          <div class="menu-item">
+             <div class="chef-badge">Chef Special</div>
+            <img src="./images/ofada.jpg" alt="Ofada" />
+            <h4>Ofada Rice & Designer Stew</h4>
+            <p>
+              Special Ofada rice paired with a gourmet pepper stew cooked with
+              assorted meats, boiled egg, and rich palm oil.
+            </p>
+            <strong>₦14,500</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/edikang-ikong.jpg" alt="Edikang Ikong" />
+            <h4>Edikang Ikong Soup</h4>
+            <p>
+              A luxurious, nutrient-rich vegetable soup from Cross River made
+              with waterleaf, ugwu, smoked fish, and assorted meats, served with
+              swallow.
+            </p>
+            <strong>₦15,000</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/coconut-rice.jpg" alt="rice" />
+            <h4>Coconut Rice</h4>
+            <p>
+              Fragrant coconut-infused rice cooked with mixed peppers and
+              prawns, delivering a creamy, tropical flavor profile.
+            </p>
+            <strong>₦14,000</strong>
+          </div>
+          <div class="menu-item">
+             <div class="chef-badge">Chef Special</div>
+            <img src="./images/masa.jpg" alt="Hausa masa" />
+            <h4>Hausa Masa with Spicy Beef Sauce</h4>
+            <p>
+              Soft, fermented rice cakes served with rich peppered beef sauce
+              and a drizzle of northern Yaji spice.
+            </p>
+            <strong>₦11,000</strong>
+          </div>
+        </div>
+        <!-- Desert -->
+        <h3>Desserts</h3>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="chef-badge">Chef Special</div>
+            <img src="./images/puff-puff.jpg" alt="Puff puff" />
+            <h4>Puff puff</h4>
+            <p>
+              Soft, fluffy fried dough balls lightly sweetened and served warm
+              with a dusting of icing sugar.
+            </p>
+            <strong>₦3,500</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/chin-chin.jpg" alt="Chin chin" />
+            <h4>Chin chin crunch</h4>
+            <p>
+              Golden, crunchy fried pastry cubes made with butter, nutmeg, and
+              milk for a rich, sweet flavor.
+            </p>
+            <strong>₦4,800</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/coconut-candy.jpg" alt="Coconut Candy" />
+            <h4>Coconut Candy</h4>
+            <p>
+              Caramelized shredded coconut cooked slowly in sugar for a chewy,
+              aromatic treat.
+            </p>
+            <strong>₦5,000</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/plantain-mosa.jpg" alt="Plantain Mosa" />
+            <h4>Plantain Mosa</h4>
+            <p>
+              Sweet mashed ripe plantain fried into soft bite-sized balls with a
+              hint of vanilla.
+            </p>
+            <strong>₦4,200</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/fruit-bowl-salad.jpg" alt="Fruit Salad" />
+            <h4>Nigerian Fruit Salad Bowl</h4>
+            <p>
+              A refreshing mix of watermelon, pineapple, pawpaw, and banana
+              drizzled with citrus juice.
+            </p>
+            <strong>₦5,500</strong>
+          </div>
+          <div class="menu-item">
+             <div class="chef-badge">Chef Special</div>
+            <img src="./images/date-and-groundnut.jpg" alt="Yam balls" />
+            <h4>Date & Groundnut Energy Mix</h4>
+            <p>
+              A rich, natural blend of dates and roasted groundnuts with
+              optional almond, oat, or coconut add-ins.
+            </p>
+            <strong>₦6,900</strong>
+          </div>
+        </div>
+        <!-- Drinks -->
+        <h3>Drinks</h3>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="chef-badge">Chef Special</div>
+            <img src="./images/zobo.png" alt="zobo" />
+            <h4>Zobo Drink</h4>
+            <p>
+              Soft, fluffy fried dough balls lightly sweetened and served warm
+              with a dusting of icing sugar.
+            </p>
+            <strong>₦3,500</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/fura.jpg" alt="Fura" />
+            <h4>Fura da Nono</h4>
+            <p>
+              Soft spiced millet balls gently broken into smooth, fermented
+              fresh milk, creating a rich and nourishing traditional northern
+              drink.
+            </p>
+            <strong>₦5,000</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/kunu.jpg" alt="kunu" />
+            <h4>Kunu aya</h4>
+            <p>
+              Pure tiger nut milk extracted and lightly sweetened, offering a
+              natural nutty flavour and smooth finish.
+            </p>
+            <strong>₦4,800</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/coconut-milk.jpg" alt="Fresh Coconut Milk" />
+            <h4>Fresh Coconut Milk</h4>
+            <p>
+              Extracted from mature coconuts and lightly chilled, this drink
+              offers a clean, creamy mouthfeel with natural tropical sweetness.
+            </p>
+            <strong>₦4,200</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/fruit-juice.jpg" alt="Fruit Juice" />
+            <h4>Fruit Drink</h4>
+            <p>
+              A locally made fruit drink, gently prepared and sweetened for a
+              simple, refreshing flavor.
+            </p>
+            <strong>₦5,500</strong>
+          </div>
+          <div class="menu-item">
+            <img src="./images/tsamiya.jpg" alt="Tsamiya (Tamarind) Drink" />
+            <h4>Tsamiya (Tamarind) Drink</h4>
+            <p>
+              A traditional tsamiya drink, freshly prepared and lightly
+              sweetened, with a rich tangy taste that refreshes and cools the
+              body.
+            </p>
+            <strong>₦4,000</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESERVATION -->
+    <section id="reservation">
+      <h2>Reservation</h2>
+      <p>Book a table with us for a delightful dining experience.</p>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <input type="tel" placeholder="Phone Number" required />
+        <input type="date" required />
+        <input type="time" required />
+        <select required>
+          <option value="">Number of Guests</option>
+          <option value="1">1 Person</option>
+          <option value="2">2 People</option>
+          <option value="3">3 People</option>
+          <option value="4">4 People</option>
+          <option value="5">5 People</option>
+          <option value="6">6 People</option>
+        </select>
+        <button type="submit">Book Table</button>
+      </form>
+      <div class="contact-info">
+        <p>Or call us at: <strong>+234 123 4567 890</strong></p>
+      </div>
+    </section>
+
+    <!-- ORDER ONLINE -->
+    <section id="order">
+      <h2>Order Online</h2>
+      <p>
+        Get your favorite dishes delivered to your doorstep or pick up at the
+        restaurant!
+      </p>
+      <div class="order-list">
+        <div class="order-item">
+          <h4>Order Now</h4>
+          <p>Click below to place your order quickly.</p>
+          <a href="#modal-order">Order Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL FORM -->
+    <div id="modal-order" class="modal">
+      <div class="modal-content">
+        <a href="#" class="close-modal">&times;</a>
+        <h3>Place Your Order</h3>
+        <form>
+          <input type="text" placeholder="Your Name" required />
+          <input type="tel" placeholder="Phone Number" required />
+          <select required>
+            <option value="">Select Dish Category</option>
+            <option value="starters">Starters</option>
+            <option value="main">Main Courses</option>
+            <option value="desserts">Desserts</option>
+            <option value="drinks">Drinks</option>
+            <option value="sides">Sides</option>
+            <option value="specials">Chef Specials</option>
+          </select>
+          <input type="number" placeholder="Quantity" min="1" required />
+          <select required>
+            <option value="">Delivery or Pickup?</option>
+            <option value="delivery">Delivery</option>
+            <option value="pickup">Pickup</option>
+          </select>
+          <input type="text" placeholder="Delivery Address (if delivery)" />
+          <button
+            type="button"
+            onclick="
+              alert(
+                '✅ Thank you! Your order has been received. Our team will contact you shortly.',
+              )
+            "
+          >
+            Place Order
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy; 2025 Sofeeyah Spice. All rights reserved.</p>
+      <p>
+        Follow us: <a href="#">Instagram</a> | <a href="#">Facebook</a> |
+        <a href="#">Twitter</a>
+      </p>
+    </footer>
+
+    <!-- JS -->
+    <script>
+  const hamburger = document.getElementById("hamburger");
+  const navLinks = document.querySelector(".nav-links");
+  const links = navLinks.querySelectorAll("a");
+
+  let isOpen = false;
+
+  hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+
+    if (isOpen) {
+      hamburger.innerHTML = "&#9776;"; // ☰ hamburger
+    } else {
+      hamburger.innerHTML = "&times;"; // × X icon
+    }
+
+    isOpen = !isOpen;
+  });
+
+  // Close menu when a link is clicked
+  links.forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      hamburger.innerHTML = "&#9776;"; // ☰ hamburger
+      isOpen = false;
+    });
+  });
+</script>
+  </body>
+</html>
